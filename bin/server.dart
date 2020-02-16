@@ -12,7 +12,7 @@ import 'package:args/args.dart';
 import 'package:shelf/shelf.dart' as shelf;
 import 'package:shelf/shelf_io.dart' as io;
 
-const _hostname = '127.0.0.1';
+const _hostname = '0.0.0.0';
 
 void main(List<String> args) async {
   var parser = ArgParser()..addOption('port', abbr: 'p');
@@ -41,7 +41,7 @@ Future<shelf.Response> _urlHandler(shelf.Request request) async {
   if (request.url.pathSegments.first == 'favicon.ico') return shelf.Response.ok(null);
 
   EnumFromString converter = EnumFromString<ServerRoutes>();
-  ServerRoutes route = converter.get(request.url.pathSegments.first);
+  ServerRoutes route = converter.get(request.url.pathSegments.last);
 
   ResponseModel response;
   ServerHandler handler;
